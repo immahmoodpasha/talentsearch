@@ -1,32 +1,81 @@
-import React from 'react'
+// import React, { useEffect, useState } from 'react'
+// import { useSelector } from 'react-redux';
+// import PostCard from '../components/PostCard.jsx'
+
+// function Home() {
+//   const [posts, setPosts] = useState([]);
+
+//   useEffect(() => {
+//     fetchPosts();
+//   }, []);
+//   const fetchPosts = async () => {
+//     const res = await fetch(`${process.env.REACT_APP_SERVER_DOMIN}/product`);
+//     const data = await res.json();
+//     setPosts(data);
+//   };
+//   return (
+//     <div className="container mx-auto">
+//       <h2 className="text-2xl font-semibold mb-4">Posts</h2>
+//       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+//         {posts.map((post) => (
+//           <PostCard key={post._id} post={post} />
+//         ))}
+//       </div>
+//     </div>
+
+//   );
+// }
+
+// export default Home
+import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-import CardFeature from '../components/CardFeature';
+import PostCard from '../components/PostCard.jsx';
 
 function Home() {
-  const productData = useSelector((state)=>state.product.productList);
-  console.log(productData);
-  const homeProductCartListVegetables= productData.filter(el => el.category ==="vegetables",[])
-  console.log(homeProductCartListVegetables);
+  const [posts, setPosts] = useState([]);
+
+  useEffect(() => {
+    fetchPosts();
+  }, []);
+
+  const fetchPosts = async () => {
+    const res = await fetch(`${process.env.REACT_APP_SERVER_DOMIN}/product`);
+    const data = await res.json();
+    setPosts(data);
+  };
+
   return (
-    <div>
-      <div className="bg-gray-100">
-      <header className="bg-blue-200 text-white p-4">
-        <h1 className="text-9xl font-semibold text-black"> Fastest Food Delivery  <br></br> to your HOME</h1>
-        <p className="text-sm pt-6 text-5xl text-orange-800">Fresh produce delivered to your doorstep</p>
-        <button className="font-bold bg-red-500 text-slate-200 px-4 py-2 mt-4 rounded-md">Order Now</button>
-      </header> 
-    </div>
-
-    <div className=''>
-      <h2 className='font-bold text-2xl text-slate-800'> Fresh Vegetables</h2>
-      <div className="">
-        <CardFeature/>
+    <div className="container mx-auto">
+      <h2 className="text-2xl font-semibold mb-4">Posts</h2>
+      <div className="grid grid-cols-1 gap-4">
+        {posts.map((post) => (
+          <div key={post._id} className="bg-white shadow-md rounded-md p-4">
+            <PostCard post={post} />
+            <div className="flex justify-between mt-4">
+              <button className="flex items-center text-gray-600 hover:text-blue-500">
+                <svg className="h-5 w-5 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 9l-2-2-2 2m4 5v7m4 0v-7m-6 7V9"></path>
+                </svg>
+                Like
+              </button>
+              <button className="flex items-center text-gray-600 hover:text-blue-500">
+                <svg className="h-5 w-5 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                </svg>
+                Share
+              </button>
+              <button className="flex items-center text-gray-600 hover:text-blue-500">
+                <svg className="h-5 w-5 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                </svg>
+                Comment
+              </button>
+            </div>
+          </div>
+        ))}
       </div>
-
     </div>
-    </div>
-
   );
 }
 
-export default Home
+export default Home;

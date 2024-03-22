@@ -33,7 +33,7 @@ function Newproduct() {
     })
     const fetchRes= await fetchData.json()
     console.log(fetchRes);
-    if(data.name&& data.category)
+    if(data.Location&& data.who_can_see)
     alert(fetchRes.message)
     else
     {
