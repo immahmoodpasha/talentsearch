@@ -1,52 +1,78 @@
-// import React from 'react'
-
-// function Menu() {
-//   return (
-//     <div></div>
-//   )
-// }
-
-// export default Menu
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import ParticipationPage from './ParticipationPage';
 
-const Menu = () => {
-  // Dummy data for expo events
-  const expoEvents = [
-    {
-      id: 1,
-      date: '2024-03-25',
-      time: '10:00 AM - 12:00 PM',
-      domain: 'Blockchain Technology',
-      experts: [
-        { id: 1, name: 'John Doe', googleLink: 'https://www.google.com/search?q=John+Doe' },
-        { id: 2, name: 'Jane Smith', googleLink: 'https://www.google.com/search?q=Jane+Smith' }
-      ]
-    },
-    // Add more expo events as needed
-  ];
+function Menu() {
+  const [events, setEvents] = useState([]);
+  const [todaysEvents, setTodaysEvents] = useState([]);
+  const [upcomingEvents, setUpcomingEvents] = useState([]);
+
+  useEffect(() => {
+    // Fetch events from your Express API
+    fetch(`${process.env.REACT_APP_SERVER_DOMIN}/Exposevent`)
+      .then(response => response.json())
+      .then(data => {
+        // Sort events by date
+        const sortedEvents = data.sort((a, b) => new Date(a.Date) - new Date(b.Date));
+        setEvents(sortedEvents);
+        separateEvents(sortedEvents);
+      })
+      .catch(error => {
+        console.error('Error fetching events:', error);
+      });
+  }, []);
+
+  // Function to separate today's events and upcoming events
+  const separateEvents = sortedEvents => {
+    const today = new Date().toLocaleDateString();
+    const todayEvents = sortedEvents.filter(event => event.Date ==="22-03-2024");
+    const upcomingEvents = sortedEvents.filter(event => event.Date !== "22-03-2024");
+    setTodaysEvents(todayEvents);
+    setUpcomingEvents(upcomingEvents);
+  };
 
   return (
     <div>
-      <h1>Expo Events</h1>
-      {expoEvents.map((event) => (
-        <div key={event.id} className="expo-event">
-          <h2>Date: {event.date}</h2>
-          <p>Time: {event.time}</p>
-          <p>Domain: {event.domain}</p>
-          <p>Experts:</p>
-          <ul>
-            {event.experts.map((expert) => (
-              <li key={expert.id}>
-                {/* Link to expert's Google search */}
-                <Link to={expert.googleLink} target="_blank">{expert.name}</Link>
-              </li>
+      <h1 className="text-3xl font-bold mb-4">Event List</h1>
+      {todaysEvents.length > 0 && (
+        <div>
+          <h2 className="text-xl font-bold mb-2">Today's Events</h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            {todaysEvents.map(event => (
+              <div key={event._id} className="border rounded p-4">
+                <h3 className="text-lg font-semibold mb-2">EventName: {event.EventName}</h3>
+                <p className="mb-2">Date: {event.Date}</p>
+                <p className="mb-2">Time: {event.Time}</p>
+                <p className="mb-2">Contractors: {event.Contractors}</p>
+                <p className="mb-2">Domain: {event.Domain}</p>
+                <Link to="/participate"><h2>Participate</h2></Link>
+                
+              </div>
             ))}
-          </ul>
+          </div>
         </div>
-      ))}
+      )}
+      {upcomingEvents.length > 0 && (
+        <div>
+          <h2 className="text-xl font-bold mb-2">Upcoming Events</h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            {upcomingEvents.map(event => (
+              <div key={event._id} className="border rounded p-4">
+                <h3 className="text-lg font-semibold mb-2">EventName: {event.EventName}</h3>
+                <p className="mb-2">Date: {event.Date}</p>
+                <p className="mb-2">Time: {event.Time}</p>
+                <p className="mb-2">Contractors: {event.Contractors}</p>
+                <p className="mb-2">Domain: {event.Domain}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+      {(todaysEvents.length === 0 && upcomingEvents.length === 0) && (
+        <p className="text-lg font-bold mb-4">No events today</p>
+      )}
     </div>
   );
-};
+}
 
 export default Menu;

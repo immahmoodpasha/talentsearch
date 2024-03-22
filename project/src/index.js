@@ -16,6 +16,7 @@ import { store } from './redux/index'
 import { Provider } from 'react-redux'
 import Forgotpassword from './pages/Forgotpassword';
 import Resetpassword from  './pages/Resetpassword';
+import ParticipationPage from './pages/ParticipationPage';
 const router=createBrowserRouter (
   createRoutesFromElements(
     <Route path='/' element={<App/>}>
@@ -28,6 +29,7 @@ const router=createBrowserRouter (
       <Route  path='signup' element={<Signup/>} />
       <Route  path='forgotpassword' element={<Forgotpassword/>} />
       <Route  path='reset_password/:id/:token' element={<Resetpassword/>} />
+      <Route  path='participate' element={<ParticipationPage/>} />
       
 
     </Route>
