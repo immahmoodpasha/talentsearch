@@ -1,0 +1,118 @@
+#cont{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+}
+
+
+#b1,#b2,#b3,#b4{
+    min-width:300px;
+    text-align: center;
+    background-color: whitesmoke;
+}
+
+#routemap{
+    min-height: 150%;
+    padding-top: 4%;
+    width: 100%;
+    background-color: #0a103d;
+    background: linear-gradient(80deg,#0d09f0, #7f009fe2, #01060d);
+    background-size: 600% 600%;
+    animation: AnimationName 29s ease infinite;
+    animation-delay: 10s;
+}
+
+
+#b2,#b4{
+    position:relative;
+    left: 300px;
+
+}
+
+#b1,#b3{
+    position: relative;
+    left:-300px;
+}
+#line{
+    width: 600px;
+    height: 5px;
+    background-color: white;
+    animation: rotate 2s 1;
+    position: relative;
+    transform: rotate(90deg);
+    
+
+}
+@keyframes rotate{
+    0% {transform: rotate(0deg);} 100%{transform: rotate(90deg);}
+}
+
+#name{
+
+    background: linear-gradient(80deg,#f55858, #90009f, #01060d);
+    background-size: 600% 600%;
+    animation: AnimationName 29s ease infinite;
+    padding-top: 10%;
+    padding-bottom: 16%;
+}
+
+@keyframes AnimationName { 
+    0%{background-position:0% 51%}
+    50%{background-position:100% 50%}
+    100%{background-position:0% 51%}
+}
+
+#main-text{
+   padding-top: 100px;
+   padding-left: 50px;
+   position: relative;
+}
+#e1{
+    padding-left: 100px;
+    position: relative;
+    animation: slide1 5s 1;
+
+}
+#e2{
+    padding-left: 350px;
+    position: relative;
+    animation: slide2 3.6s 1;
+}
+#e3{
+    padding-left: 500px;
+    position: relative;
+    animation: slide3 3s 1;
+}
+
+@keyframes slide1{
+
+    from{left:-100px } to {left:00px} 
+}
+@keyframes slide2{
+
+    from{left:-200px } to {left:0px} 
+}
+@keyframes slide3{
+
+    from{left:-300px } to {left:0px} 
+}
+
+#img{
+    position:absolute;
+    top: 100px;
+    right: 50px;
+}
+.arrow1{
+    position: relative;
+    margin-top: -4%;
+    left:-8%;
+    color: white;
+    
+}
+.arrow2{
+    position: relative;
+    margin-top: -4%;
+    right:-8%;
+    color: white;
+}

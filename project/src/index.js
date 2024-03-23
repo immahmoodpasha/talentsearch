@@ -17,6 +17,9 @@ import { Provider } from 'react-redux'
 import Forgotpassword from './pages/Forgotpassword';
 import Resetpassword from  './pages/Resetpassword';
 import ParticipationPage from './pages/ParticipationPage';
+import Profile from './pages/Profile';
+import Job from './pages/Job';
+import SearchJobs from './pages/SearchJobs';
 const router=createBrowserRouter (
   createRoutesFromElements(
     <Route path='/' element={<App/>}>
@@ -30,7 +33,9 @@ const router=createBrowserRouter (
       <Route  path='forgotpassword' element={<Forgotpassword/>} />
       <Route  path='reset_password/:id/:token' element={<Resetpassword/>} />
       <Route  path='participate' element={<ParticipationPage/>} />
-      
+      <Route  path='job' element={<Job/>} />
+      <Route path="profile" element={<Profile/>} />
+      <Route path="searchjob" element={<SearchJobs/>} />
 
     </Route>
   )

@@ -100,12 +100,56 @@ app.post("/uploadProduct", (req, res) => {
     console.log("object")
     res.send({ message: "upload succesfully" })
 })
+//api to post jobs
+const JobSchema = mongoose.Schema({
+    Location: String,
+    Role: String,
+    Duration: String,
+    Salary: String,
+    Description: String,
+    Email : String,
+})
+//model
+const JobModel = mongoose.model("job", JobSchema)
+
+//api upload post
+app.post("/uploadJob", (req, res) => {
+    console.log(req.body);
+    const data = JobModel(req.body)
+    data.save()
+    console.log("object")
+    res.send({ message: "upload succesfully" })
+})
 //api get products
 app.get("/product", async (req, res) => {
     const data = await productModel.find({})
     res.send(JSON.stringify(data))
 })
 
+app.get("/jobss", async (req, res) => {
+    const data = await JobModel.find({})
+    res.send(JSON.stringify(data))
+})
+
+app.post("/profile/email", (req, res) => {
+    console.log(req.body);
+    const email = req.body.email;
+    console.log('object : ',  email) // Correctly extract email from params
+    userModel
+      .findOne({ email: email })
+      .then((data) => {
+        if (data) {
+          res.send(data);
+        } else {
+          res.sendStatus(404);
+        }
+      })
+      .catch((error) => {
+        console.error("Error fetching profile data:", error);
+        res.sendStatus(500);
+      });
+  });
+  
 //
 app.post("/forgot-password", async (req, res) => {
     const { email } = req.body
